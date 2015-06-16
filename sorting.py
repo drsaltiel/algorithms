@@ -5,7 +5,7 @@ some list sorting functions
 
 def is_sorted(input_list):
     '''
-    tests whether input list is is_sorted
+    tests whether input list is sorted
     '''
     if len(input_list) == 0 or len(input_list) == 1:
         return True
