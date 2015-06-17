@@ -31,6 +31,8 @@ class BinaryTree(object):
         returns subtree that is the parent of argument value.
         if argument value is not present, returns None.
         '''
+        if self.search_tree(value) is None or value == self.value:
+            return None
         if value == self.left.value or value == self.right.value:
             return self
         elif value > self.value:
