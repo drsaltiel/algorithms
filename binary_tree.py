@@ -78,6 +78,8 @@ class BinaryTree(object):
         returns subtree of next lowest valued node than given value
         '''
         value_tree = self.search_tree(value)
+        if value_tree is None:
+            return None
         if value_tree.left is None:
             return None
         else:
@@ -88,6 +90,8 @@ class BinaryTree(object):
         returns subtree of next highest valued node than given value
         '''
         value_tree = self.search_tree(value)
+        if value_tree is None:
+            return None
         if value_tree.right is None:
             return None
         else:
@@ -98,6 +102,8 @@ class BinaryTree(object):
         deletes argument value from tree
         '''
         value_tree = self.search_tree(value)
+        if value_tree is None:
+            return self
         parent_tree = self.search_tree_for_parent(value)
         if value_tree.left is None and value_tree.right is None:
             if parent_tree.value < value:
