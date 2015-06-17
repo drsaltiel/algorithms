@@ -16,8 +16,12 @@ class BinaryTree(object):
         if value == self.value:
             return self
         elif value < self.value:
+            if self.left is None:
+                return None
             return self.left.search_tree(value)
         elif value > self.value:
+            if self.right is None:
+                return None
             return self.right.search_tree(value)
         else:
             return None
