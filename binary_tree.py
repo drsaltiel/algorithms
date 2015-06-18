@@ -4,10 +4,10 @@ defines a class for binary trees
 
 
 class BinaryTree(object):
-    def __init__(self, value, left_branch, right_branch):
+    def __init__(self, value, left=None, right=None):
         self.value = value
-        self.left = left_branch
-        self.right = right_branch
+        self.left = left
+        self.right = right
 
     def search_tree(self, value):
         '''
@@ -15,16 +15,16 @@ class BinaryTree(object):
         '''
         if value == self.value:
             return self
-        elif value < self.value:
+        if value < self.value:
             if self.left is None:
                 return None
-            return self.left.search_tree(value)
-        elif value > self.value:
+            else:
+                self.left.search_tree(value)
+        if value > self.value:
             if self.right is None:
                 return None
-            return self.right.search_tree(value)
-        else:
-            return None
+            else:
+                self.right.search_tree(value)
 
     def search_tree_for_parent(self, value):
         '''
@@ -35,12 +35,10 @@ class BinaryTree(object):
             return None
         if value == self.left.value or value == self.right.value:
             return self
-        elif value > self.value:
-            return self.left.search_tree_for_parent(value)
-        elif value < self.value:
-            return self.right.search_tree_for_parent(value)
-        else:
-            return None
+        if value < self.value:
+            self.left.search_tree_for_parent(value)
+        if value > self.value:
+            self.right.search_tree_for_parent(value)
 
     def size(self):
         '''
@@ -62,7 +60,7 @@ class BinaryTree(object):
         if self.left is None:
             return self
         else:
-            return self.left.min_tree()
+            self.left.min_tree()
 
     def max_tree(self):
         '''
@@ -71,7 +69,7 @@ class BinaryTree(object):
         if self.right is None:
             return self
         else:
-            return self.right.max_tree()
+            self.right.max_tree()
 
     def pred_tree(self, value):
         '''
@@ -102,56 +100,54 @@ class BinaryTree(object):
         deletes argument value from tree
         '''
         value_tree = self.search_tree(value)
+        parent_tree = self.search_tree_for_parent(value)
         if value_tree is None:
             return self
-        parent_tree = self.search_tree_for_parent(value)
-        if value_tree.left is None and value_tree.right is None:
+        elif value_tree.left is None and value_tree.right is None:
             if parent_tree.value < value:
                 parent_tree.right = None
-                return self
+
             if parent_tree.value > value:
                 parent_tree.left = None
-                return self
-        if parent_tree.right is value_tree:
+
+        elif parent_tree.right is value_tree:
             if value_tree.left is None:
                 parent_tree.right = value_tree.right
-                return self
+
             if value_tree.right:
                 parent_tree.right = value_tree.left
-                return self
-        if parent_tree.left is value_tree:
+
+        elif parent_tree.left is value_tree:
             if value_tree.left is None:
                 parent_tree.right = value_tree.right
-                return self
+
             if value_tree.right:
                 parent_tree.right = value_tree.left
-                return self
+
         else:
             predecessor = self.pred_tree(value)
             pred_value = predecessor.value
             value_tree.value = pred_value
             predecessor.value = value
             self.delete(predecessor.value)
-            return self
+
 
     def insert(self, value):
         '''
         inserts argument value into tree
         '''
-        if self.value == value:
-            return self
+        # if self.value == value:
+        #     return self
         if self.value > value:
             if self.left is None:
-                self.left = value
-                return self
+                self.left = BinaryTree(value, None, None)
             else:
-                self.insert(value)
+                self.left.insert(value)
         if self.value < value:
             if self.right is None:
-                self.right = value
-                return self
+                self.right = BinaryTree(value, None, None)
             else:
-                self.insert(value)
+                self.right.insert(value)
 
     def elements_in_order(self):
         '''
