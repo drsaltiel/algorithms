@@ -15,9 +15,9 @@ def sort_select(i, input_list):
     return sorted_input[i]
 
 
-def randomized_select(i, input_list, pivot=0.5):
+def pivot_select(i, input_list, pivot=0.5):
     '''
-    random selection algo to find i smallest element (zero indexed) of input input_list
+    pivot selection algo to find i smallest element (zero indexed) of input input_list
     '''
     if not 0 < pivot < 1:
         raise ValueError('Pivot outside of acceptable range (0,1)')
