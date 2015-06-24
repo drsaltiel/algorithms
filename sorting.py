@@ -68,6 +68,8 @@ def quick_sort(input_list, pivot=0.5):
     '''
     sort using quick sort / pivot sort
     '''
+    if 0 < pivot < 1:
+        raise ValueError('Pivot outside of acceptable range (0,1)')
     length = len(input_list)
     if length == 0 or length == 1:
         return input_list
